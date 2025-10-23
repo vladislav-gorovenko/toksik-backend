@@ -1,0 +1,7 @@
+@ToksikApp_HostAddress = http://localhost:5186
+
+GET {{ToksikApp_HostAddress}}/ai/generate-emotions-summary
+x-app-user-id: $RCAnonymousID:1feae0c589154887b9fe5fe0ab29a4a8
+Accept: application/json
+
+###
