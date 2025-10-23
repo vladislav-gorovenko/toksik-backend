@@ -1,6 +1,5 @@
-using System.Net.Http.Headers;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using OpenAI.Chat;
 using ToksikApp.Contracts.GetAiSummary.Responses.Query;
 
 namespace ToksikApp.Controllers;
@@ -9,20 +8,31 @@ namespace ToksikApp.Controllers;
 [Route("ai")]
 public class AiController : ControllerBase
 {
-    public HttpClient _httpClient;
-    private readonly JsonSerializerOptions _jsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
+    private readonly ChatClient _chatClient;
 
-    public AiController(HttpClient httpClient)
+    public AiController(IConfiguration configuration)
     {
-        _httpClient = httpClient;
+        var apiKey = configuration["OpenAI:ApiKey"];
+        _chatClient = new ChatClient("gpt-4o-mini", apiKey);
+    }
+    
+    public class AnalyzeEmotionsRequest
+    {
+        public string Text { get; set; } = string.Empty;
     }
 
-    [HttpGet("generate-emotions-summary")]
-    public async Task<GetAiSummaryResponse> GetAiSummary()
+    [HttpPost("analyze-emotions")]
+    public async Task<GetAiSummaryResponse> AnalyzeEmotions([FromBody] AnalyzeEmotionsRequest request)
     {
-        return new GetAiSummaryResponse("Hello world");
+        var messages = new ChatMessage[]
+        {
+            new SystemChatMessage("You are an emotion analysis expert. Analyze the emotional content of the text and provide a summary of the emotions detected."),
+            new UserChatMessage(request.Text)
+        };
+
+        var completion = await _chatClient.CompleteChatAsync(messages);
+        var response = completion.Value.Content[0].Text;
+
+        return new GetAiSummaryResponse(response);
     }
 }
