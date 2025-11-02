@@ -1,0 +1,12 @@
+@ToksikApp_HostAddress = http://localhost:5186
+
+POST {{ToksikApp_HostAddress}}/ai/analyze-emotions
+Content-Type: application/json
+Accept: application/json
+x-app-user-id: $RCAnonymousID:1feae0c589154887b9fe5fe0ab29a4a8
+
+{
+  "text": "Я чувствую себя не очень, второй день подряд ложусь в 3 часа ночи"
+}
+
+###
