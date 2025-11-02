@@ -19,8 +19,8 @@ public static class RateLimiterExtensions
                     partitionKey: appUserId,
                     factory: _ => new FixedWindowRateLimiterOptions
                     {
-                        PermitLimit = 3,
-                        Window = TimeSpan.FromDays(1),
+                        PermitLimit = 1,
+                        Window = TimeSpan.FromHours(8),
                         AutoReplenishment = true,
                         QueueLimit = 0
                     });

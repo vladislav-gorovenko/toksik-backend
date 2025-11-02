@@ -13,8 +13,4 @@ public class GetAiEmotionsSummaryQueryRequestItem
     public string? Notes { get; set; }
 
     public string? Tags { get; set; }
-
-    public string? CreatedAt { get; set; }
-
-    public string? UpdatedAt { get; set; }
 }
