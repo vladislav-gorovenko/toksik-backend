@@ -11,6 +11,4 @@ public class GetAiEmotionsSummaryQueryRequestItem
     public string? Intensity { get; set; }
 
     public string? Notes { get; set; }
-
-    public string? Tags { get; set; }
 }

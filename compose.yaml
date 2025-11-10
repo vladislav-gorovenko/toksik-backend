@@ -1,0 +1,7 @@
+﻿services:
+  toksikapp:
+    image: toksikapp
+    build:
+      context: .
+      dockerfile: ToksikApp/Dockerfile
+
